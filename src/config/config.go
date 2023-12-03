@@ -1,6 +1,7 @@
 package config
 
 import (
+	"example/todo-go/src/models"
 	"fmt"
 	"os"
 
@@ -33,6 +34,11 @@ func ConnectDB() *gorm.DB {
 	if errorDB != nil {
 		panic("Cannot connect to database using given parameter. Kindly recheck")
 	}
+
+	Users := models.Users{}
+	Tasks := models.Tasks{}
+
+	db.AutoMigrate(&Users, &Tasks)
 
 	return db
 }

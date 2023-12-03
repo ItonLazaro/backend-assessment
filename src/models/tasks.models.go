@@ -10,7 +10,7 @@ type Tasks struct {
 	gorm.Model  //declares basic and defaults columns (ID and timestamps)
 	Title       string
 	Description string
-	DueDate     string //should be changed to date data type
+	DueDate     string
 	Priority    string
 	Status      string
 }
