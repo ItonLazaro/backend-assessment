@@ -11,9 +11,9 @@ import (
 //Define Users table for database communication
 
 type Users struct {
-	gorm.Model
-	Username string `gorm:"size:255; not null, unique"`
-	Password string `gorm:"size:255; not null;"`
+	gorm.Model        //declares basic and defaults columns (ID and timestamps)
+	Username   string `gorm:"size:255; not null, unique"`
+	Password   string `gorm:"size:255; not null;"`
 }
 
 func (u *Users) BeforeSave() error {

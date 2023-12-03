@@ -36,16 +36,18 @@ func Register(context *gin.Context) {
 
 	//initialize User Model
 	user := models.Users{}
+	//Setup username and password values from request body
 	user.Username = data.Username
 	hashedPassword, err := hashPassword(data.Password)
 
 	if err != nil {
+		//error in hashing the password
 		context.JSON(http.StatusBadRequest, gin.H{"error": "Something went wrong with registering a new user"})
 		return
 	}
 	user.Password = hashedPassword
 
-	result := dbUsers.Create(&user)
+	result := dbUsers.Create(&user) //Insert query
 
 	if result.Error != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": "Something went wrong with registering a new user"})
@@ -90,7 +92,7 @@ func Login(context *gin.Context) {
 		return
 	}
 
-	token, err := token.GenerateToken(user.ID)
+	token, err := token.GenerateToken(user.ID) //Generate JWT
 
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": "Login Error"})
@@ -102,6 +104,7 @@ func Login(context *gin.Context) {
 
 // methods that starts with lowercase are private methods
 func hashPassword(password string) (string, error) {
+	//hash password using Go's crypto library
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 
 	if err != nil {

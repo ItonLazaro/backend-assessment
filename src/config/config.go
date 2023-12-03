@@ -35,6 +35,7 @@ func ConnectDB() *gorm.DB {
 		panic("Cannot connect to database using given parameter. Kindly recheck")
 	}
 
+	//Once connection is established, migrate Users and Tasks table if tables are not yet existing
 	Users := models.Users{}
 	Tasks := models.Tasks{}
 

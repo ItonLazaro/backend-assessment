@@ -3,7 +3,6 @@ package controllers
 import (
 	"example/todo-go/src/config"
 	"example/todo-go/src/models"
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -11,9 +10,9 @@ import (
 	"gorm.io/gorm"
 )
 
-var db *gorm.DB = config.ConnectDB() //rename db
+var db *gorm.DB = config.ConnectDB()
 
-// Task structure for request body
+// Task structure for http request body
 type taskRequest struct {
 	Title       string `json:"title"`
 	Description string `json:"description"`
@@ -22,7 +21,7 @@ type taskRequest struct {
 	Status      string `json:"status"`
 }
 
-// Declare request body for Task
+// Declare http response body for Task
 type taskReponse struct {
 	taskRequest
 	ID uint `json:"id"`
@@ -39,6 +38,7 @@ func CreateTask(context *gin.Context) {
 		return
 	}
 
+	//initiate Tasks model and append request body to respective model properties (table columns)
 	task := models.Tasks{}
 	task.Title = data.Title
 	task.Description = data.Description
@@ -46,13 +46,13 @@ func CreateTask(context *gin.Context) {
 	task.Priority = data.Priority
 	task.Status = data.Status
 
-	result := db.Create(&task)
+	result := db.Create(&task) //Insert query
 	if result.Error != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": "Something went wrong"})
 		return
 	}
 
-	//build a response data
+	//build a http response data
 	var response taskReponse
 	response.ID = task.ID
 	response.Title = task.Title
@@ -95,8 +95,6 @@ func UpdateTask(context *gin.Context) {
 
 	//Defining request parameter to get task id
 	idTask := cast.ToUint(context.Param("id"))
-	// idTask := cast.ToUint(reqParamId)
-
 	isValidRequest := context.BindJSON(&data) //used twice. Can be moved to a separate function (TODO)
 
 	//Throw a HTTP Error 400 Bad Request
@@ -117,15 +115,14 @@ func UpdateTask(context *gin.Context) {
 		return
 	}
 
+	//Setup new column values from request body
 	task.Title = data.Title
 	task.Description = data.Description
 	task.DueDate = data.DueDate
 	task.Priority = data.Priority
 	task.Status = data.Status
 
-	fmt.Println(task)
-
-	result := db.Save(&task)
+	result := db.Save(&task) //Update query
 
 	if result.Error != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": "Error updating the task"})
@@ -151,7 +148,6 @@ func DeleteTask(context *gin.Context) {
 
 	//Defining request parameter to get task id
 	idTask := context.Param("id")
-	// idTask := cast.ToUint(reqParamId)
 
 	db.Where("id = ?", idTask).Delete(&task)
 
