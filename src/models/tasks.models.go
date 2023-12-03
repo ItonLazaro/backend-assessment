@@ -14,5 +14,3 @@ type Tasks struct {
 	Priority    string
 	Status      string
 }
-
-//TODO Define users table structure

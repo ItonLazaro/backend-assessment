@@ -11,8 +11,7 @@ import (
 	"gorm.io/gorm"
 )
 
-// Establish DB connection
-var db *gorm.DB = config.ConnectDB()
+var db *gorm.DB = config.ConnectDB() //rename db
 
 // Task structure for request body
 type taskRequest struct {

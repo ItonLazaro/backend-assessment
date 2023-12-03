@@ -9,10 +9,14 @@ import (
 func Routes() {
 	route := gin.Default()
 
-	route.GET("/task", controllers.GetAllTasks)
-	route.POST("/task", controllers.CreateTask)
-	route.PUT("/task/:id", controllers.UpdateTask)
-	route.DELETE("/task/:id", controllers.DeleteTask)
+	route.POST("/api/login", controllers.Login)
+	// route.POST("/api/logout", controllers.logout)
+	route.POST("/api/register", controllers.Register)
+
+	route.GET("/api/task", controllers.GetAllTasks)
+	route.POST("/api/task", controllers.CreateTask)
+	route.PUT("/api/task/:id", controllers.UpdateTask)
+	route.DELETE("/api/task/:id", controllers.DeleteTask)
 
 	//Run a Route when triggered
 
