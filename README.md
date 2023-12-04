@@ -1,47 +1,49 @@
 # Backend Developer Assessment
 
-## Scenario
-You are part of a team tasked with building a backend for a new productivity app. The app is designed to help users manage their tasks more effectively. As a backend developer, your job is to create a RESTful API that will handle task management and user authentication.
+## Requirement
+To run this project, you need to install:
 
-## Core Features
+- [go](https://golang.org/dl/)
+- [mysql](https://www.mysql.com/downloads/)
 
-### 1. User Authentication System
-- Implement endpoints for user registration, login, and logout.
-- Ensure secure handling of user credentials.
+## Clone the project
 
-### 2. Task Management Endpoints
-- Create endpoints to add, retrieve, update, and delete tasks.
-- Each task should have attributes like title, description, creation date, and status.
+```
+$ git clone https://github.com/ItonLazaro/backend-assessment.git
+$ cd backend-assessment
+```
 
-### 3. Data Storage
-- Choose an appropriate database for storing user and task data.
-- Ensure data integrity and efficient retrieval.
+## Create a database
 
-### 4. Documentation
-- Provide clear documentation on how to set up and use the API.
+```
+Open a NEW and SEPARATE terminal
+$ mysql -u <username> -p 
+$ <Enter password>
+$ create database storia
+```
+## 
 
-## Technology Stack
-- **Primary Language:** Use a language that is not your main area of expertise. If you are proficient in PHP or Ruby, for example, try using C#.
-- **Framework:** Depending on the language chosen, use an appropriate framework (e.g., Ruby on Rails for Ruby, .NET for C#, etc).
-- **Database:** SQL (like MySQL, PostgreSQL) or NoSQL (like MongoDB).
-- **Testing:** Write basic tests to ensure your API endpoints work as expected.
 
-## Evaluation Criteria
-- **Problem Solving:** How you approach the task and solve challenges.
-- **Adaptability:** Your ability to work with unfamiliar languages or frameworks.
-- **Code Quality:** Organization, readability, and maintainability of your code.
-- **Documentation:** The clarity of your setup and usage instructions.
+## Run the Program
 
-## Extra Credit
-- **Advanced Features:** Implement advanced features like task prioritization, deadlines, or notifications for overdue tasks.
-- **Security:** Add features like token-based authentication or rate limiting to enhance API security.
-- **Deployment:** Containerize the application using Docker and provide instructions for deployment.
-- **Testing:** Comprehensive test coverage for your application.
+```
+Go back to /backend-assessment directory
+$ go run main.go
+```
 
-## Submission
-- Fork the provided repository and commit your work to your fork.
-- Upon completion, notify the interviewer and share access to your repository.
 
-## Notes
-- Feel free to ask clarifying questions.
-- Emphasis is on your approach to problem-solving and learning, not just on delivering a fully functional API.
+## List of Endpoints
+
+```
+    [POST] localhost:8080/api/register
+    [POST] localhost:8080/api/login
+
+
+    **Endpoints below needs a Bearer Token that is generated and a response from Login endpoint**
+    [GET] localhost:8080/api/task
+    [POST] localhost:8080/api/task
+    [PUT] localhost:8080/api/task/{task_id}
+    [DELETE] localhost:8080/api/task/{task_id}
+```
+
+**For faster POSTMAN endpoint setup, you can import Storia.postman_collection.json file**
